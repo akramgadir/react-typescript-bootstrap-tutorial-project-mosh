@@ -3,9 +3,12 @@ import { MouseEvent, useState } from "react"
 interface Props {
     items: string[];
     heading: string;
-}
+    onSelectItem: (item:string) => void;
+        
+    }
 
-function ListGroup({items, heading}: Props) {
+
+function ListGroup({items, heading, onSelectItem }: Props) {
 
     const [selectedIndex, setSelectedIndex] = useState(-1)
     //:MouseEvent makes it typesafe so that TS knows event is of type MouseEvent and knows what methods it has (MouseEvent must be imported)
@@ -23,7 +26,9 @@ function ListGroup({items, heading}: Props) {
         {items.map((item, index)=>
         (<li className={selectedIndex === index? 'list-group-item active' : 'list-group-item'}
             key={item}
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => {setSelectedIndex(index);
+            onSelectItem(item);}
+        }
             >
             {item}
         </li>
